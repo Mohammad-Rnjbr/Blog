@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <!-- Design by foolishdeveloper.com -->
+    <title>Login</title>
+ 
+ 	<div th:replace="fragment/layout::head"></div>
+ 	<link rel="stylesheet" th:href="@{/css/login.css}">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
+
+</head>
+<body>
+    <div class="background">
+        <!-- <div class="shape"></div>
+        <div class="shape"></div> -->
+    </div>
+    <form th:action="@{/login}" method="post" th:object="${user}">
+        <h3>Login Here</h3>
+        
+        <label for="email">Email</label>
+		<input class="form-control" placeholder="Email" name="email" id="email" type="text" th:field="*{email}">
+        
+        <label for="password">Password</label>
+		<input class="form-control " placeholder="Password" name="password" id="password" type="password" th:field="*{password}">
+        
+        <button class="btn btn-primary form-control btn-lg btn-md mt-4">Log In</button>
+        
+        <div class="social">
+          <div class="go"><i class="fab fa-google"></i>Google</div>
+          <div class="fb"><i class="fab fa-facebook"></i>Facebook</div>
+        </div>
+        
+        <div align="center" class="form-group mt-5">
+			<a class="nav-link link-light nocolor" th:href="@{/users/register}" >Do you have an account? Sign up</a> 
+		</div>
+							
+    </form>
+</body>
+</html>
+ 

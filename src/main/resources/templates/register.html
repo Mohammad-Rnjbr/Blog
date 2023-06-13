@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <!-- Design by foolishdeveloper.com -->
+    <title>Signup</title>
+ 
+ 	<div th:replace="fragment/layout::head"></div>
+ 	<link rel="stylesheet" th:href="@{/css/login.css}">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/bootstrap-select.min.css}">
+    <script th:src="@{/js/bootstrap-select.min.js}"></script>
+
+	<style type="text/css">
+		form{
+	    height: 615px;
+	    width: 450px;
+	    background-color: rgba(255,255,255,0.13);
+	    position: absolute;
+	    transform: translate(-50%,-50%);
+	    top: 50%;
+	    left: 50%;
+	    border-radius: 10px;
+	    backdrop-filter: blur(10px);
+	    border: 2px solid rgba(255,255,255,0.1);
+	    box-shadow: 0 0 40px rgba(8,7,16,0.6);
+	    padding: 50px 35px;
+	}
+	</style>
+</head>
+<body>
+    <div class="background">
+        <div class="shape"></div>
+        <div class="shape"></div>
+    </div>
+    <form th:action="@{/login}" method="post" th:object="${user}" enctype="multipart/form-data">
+        <h3>Sign up Here</h3>
+        
+        <label for="email">Email</label>
+		<input class="form-control" placeholder="Email" id="email" type="text" th:field="*{email}">
+        
+        <label for="password">Name</label>
+		<input class="form-control " placeholder="Name" id="name" type="text" th:field="*{name}">
+		
+		<label for="password">Password</label>
+		<input class="form-control " placeholder="Password" id="password" type="password" th:field="*{password}">
+		
+		<div class="form-group row">
+            <label class="col-form-label col-sm-3" for="cat">Categories </label>
+            <div class="col-sm-9">
+                <select class="selectpicker" id="cat" multiple th:field="*{roles}">
+                    <option th:each="role : ${T(ir.Sadr.blog.enums.Roles).values()}"
+                    th:text="${role}"
+                    th:value="${role}"></option>
+                </select>
+                <div class="validation" th:if="${#fields.hasErrors('roles')}" th:errors="*{roles}"></div>
+            </div>
+        </div>
+
+
+        <div class="form-group row">
+            <label class="col-form-label col-sm-3" for="cover">Cover : </label>
+            <div class="col-sm-9">
+                <input class="form-control-file" id="cover" th:field="*{file}" type="file">
+            </div>
+        </div>
+        
+        <button class="btn btn-primary form-control btn-lg btn-md mt-4">Register</button>
+							
+    </form>
+</body>
+</html>
+ 

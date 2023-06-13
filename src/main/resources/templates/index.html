@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Sadr Blog</title>
+    <div th:replace="fragment/layout::head"></div>
+    <!-- <div th:include="fragment replace to this tag inner" -->
+</head>
+<body>
+
+<div th:replace="fragment/layout::header"></div>
+
+<!-- <div class="container-fluid mt-3 pl-5 pr-5" style="background-color: gray"> -->
+<div class="container-fluid mt-3 pl-5" style="background-color: gray">
+
+    <a th:each="post : ${posts}" th:href="@{/posts/viewPost/{id}(id=${post.getId()})}" class="text-dark">
+        <div class="card mr-3 mb-4" style="width: 18rem; float: left;">
+            <img alt="Card image cap" class="card-img-top border-bottom border-secondary"
+                 style="width: 16.8rem; height: 16rem; object-fit: contain; margin: auto;"
+                 th:src="'/img/' + ${post.getCover()}">
+            <div class="card-body">
+                <h6 class="card-title text-truncate" th:text="${post.getTitle()}"></h6>
+                <p class="card-text text-truncate" th:text="${post.getBody()}"></p>
+            </div>
+            <div class="card-footer">
+                <p class="text-center small text-muted m-0 p-0" th:text="'Last Update : ' + ${#temporals.format(post.getCreatedAt(),'yyyy-MM-dd HH:mm')}"></p>
+            </div>
+        </div>
+    </a>
+
+</div>
+
+<div align="center">
+	<nav aria-label="Page navigation example" style="float: left; margin-left: 44%">
+	    <ul class="pagination">
+	        <li class="page-item" th:classappend="${posts.first} ? disabled">
+	            <a class="page-link"
+	               th:href="@{/(page=${posts.number - 1})}">Previous</a>
+			</li>
+	        <li class="page-item"
+	            th:classappend="${posts.number == i} ? active"
+	            th:each="i : ${#numbers.sequence(0, posts.totalPages - 1)}">
+	            <a class="page-link" th:href="@{/(page=${i})}">[[${i + 1}]]</a>
+			</li>
+	        <li class="page-item" th:classappend="${posts.last} ? disabled">
+	            <a class="page-link" th:href="@{/(page=${posts.number + 1})}">Next</a>
+            </li>
+	    </ul>
+	</nav>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<!-- saved from url=(0044)file:///D:/Project/bootstrap/blog/users.html -->
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <title>Users</title>
+    <div th:replace="fragment/layout::head"></div>
+</head>
+<body class="">
+
+<div th:replace="fragment/layout::header"></div>
+
+<div class="container-fluid m-0 p-4">
+
+<div>
+    <a class="mb-2 btn btn-primary" style="width: 100px" th:href="@{/users/register}">
+        NEW
+    </a>
+
+	<div style="float: right">
+		<!-- <h2 style="font-weight: bold; font-size:25px;">[['Welcome ' + ${u.name} + ' 👋']]</h2> -->
+		<h2 style="font-weight: bold; font-size:25px;">[['Welcome ' + ${#strings.arraySplit(u.name,' ')[0]} + ' ! 👋']]</h2>
+	</div>
+</div>
+    <table class="table">
+        <thead class="thead-light">
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Email</th>
+            <th scope="col">Name</th>
+            <th scope="col">Created Date</th>
+            <th scope="col">Updated Date</th>
+            <th scope="col">Operation</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="user : ${users}">
+            <th scope="row" th:text="${user.getId()}"></th>
+            <td th:text="${user.getEmail()}"></td>
+            <td th:text="${user.getName()}"></td>
+            <td th:text="${#temporals.format(user.getCreatedAt(),'yyyy-MM-dd HH:mm')}"></td>
+            <td th:text="${#temporals.format(user.updatedAt,'yyyy-MM-dd HH:mm')}"></td>
+            <td>
+                <a class="btn btn-success" th:href="@{/users/edit/{id}(id=${user.getId()})}" style="width: 80px">Edit</a>
+                <a class="btn btn-danger" data-toggle="modal" style="width: 80px" th:data-target="'#delete'+${user.getId()}"
+                 th:href="@{/users/delete/{id}(id=${user.getId()})}">Delete</a>
+            
+            	<div aria-hidden="true" aria-labelledby="exampleModalLabel" class="modal fade" role="dialog"
+                     tabindex="-1" th:id="'delete' + ${user.getId()}">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Delete Category</h5>
+                                <button aria-label="Close" class="close" data-dismiss="modal" type="button">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body" th:text="'Are You Sure to Delete ' + ${user.getName()} + ' ( ' + ${user.getEmail()} + ' )' + ' ?'">
+                            </div>
+                            <div class="modal-footer">
+                                <button class="btn btn-secondary" data-dismiss="modal" type="button">Close</button>
+                                <a class="btn btn-danger" th:href="@{/users/delete/{id}(id=${user.getId()})}">Delete</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+</div>
+
+
+</body>
+</html>

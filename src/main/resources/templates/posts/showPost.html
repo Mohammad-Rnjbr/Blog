@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="fa" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Post</title>
+    <div th:replace="fragment/layout::head"></div>
+    <link rel="stylesheet" th:href="@{/css/post.css}">
+    <!-- <div th:include="fragment replace to this tag inner" -->
+    
+</head>
+<body>
+
+<div th:replace="fragment/layout::header"></div>
+
+    <div class="card mr-3 mb-4 mt-3" style="width: 98%; float: right;" dir="rtl" align="right">
+    	<h2 th:text="${post.getTitle()}" class = "custommargin"></h2><br>
+        <h5 th:text="'تاریخ انتشار : ' + ${#temporals.format(post.createdAt,'HH:mm dd-MM-yyyy')}" class = "custommargin"></h5><br>
+      	<div style="height:200px;" class = "custommargin">
+      	<img alt="Card image cap" class="card-img-top border-bottom border-secondary"
+                 style="width: 16.8rem; height: 16rem; object-fit: contain; margin: auto;"
+                 th:src="'/img/' + ${post.getCover()}">
+      	</div><br><br><br><br>
+      	<p th:text="${post.getBody()}" class = "custommargin"></p>
+      	<h5 class = "custommargin">برچسب ها</h5>
+		<ul>
+			<li th:each="category : ${post.getCategories()}"><h6 th:text="${category.title}" class = "custommargin"></h6></li>
+		</ul>
+		<h5 th:text="'آخرین بروزرسانی : ' + ${#temporals.format(post.updatedAt,'HH:mm dd-MM-yyyy')}" class = "custommargin"></h5>
+		</div>
+    
+</body>
+</html>

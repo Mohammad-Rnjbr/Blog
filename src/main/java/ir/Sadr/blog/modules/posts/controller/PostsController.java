@@ -6,7 +6,6 @@ import java.security.Principal;
 import java.util.List;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
@@ -33,9 +32,6 @@ import ir.Sadr.blog.modules.users.service.UsersService;
 @Controller
 @RequestMapping("/posts") 
 public class PostsController {
-
-	@Value("${uploadDir}")
-	private String uploadFolder;
 	
 	private Posts post ;
 	private PostsService postsService ;

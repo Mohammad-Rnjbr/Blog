@@ -1,4 +1,4 @@
-package ir.Sadr.blog.config;
+ package ir.Sadr.blog.config;
 
 import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
